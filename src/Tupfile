@@ -1,0 +1,9 @@
+# Configuration for the tup build system
+include_rules
+
+# Directories to search for include files
+CFLAGS += -Iother
+
+: |> !create_version_h |> version.h
+: foreach *.c | version.h |> !compile |>
+: *.o $(CLIBS) |> !link |> $(EXEC)
